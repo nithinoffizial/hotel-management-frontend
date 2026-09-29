@@ -19,11 +19,21 @@ function Dashboard() {
           getDashboardBookings(),
         ]);
 
-        setRooms(roomsResponse.data);
-        setBookings(bookingsResponse.data);
+        const roomsData = Array.isArray(roomsResponse.data)
+          ? roomsResponse.data
+          : [];
+
+        const bookingsData = Array.isArray(bookingsResponse.data)
+          ? bookingsResponse.data
+          : [];
+
+        setRooms(roomsData);
+        setBookings(bookingsData);
         setError("");
       } catch (err) {
         console.error("Error loading dashboard data:", err);
+        setRooms([]);
+        setBookings([]);
         setError("Unable to load dashboard data from the backend.");
       } finally {
         setLoading(false);
