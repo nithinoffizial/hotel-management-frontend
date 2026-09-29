@@ -6,4 +6,21 @@ const getBookings = () => {
   return axios.get(API_URL);
 };
 
-export { getBookings };
+const createBooking = (booking) => {
+  return axios.post(API_URL, booking);
+};
+
+const updateBooking = (id, booking) => {
+  return axios.put(`${API_URL}/${id}`, booking);
+};
+
+const deleteBooking = (id) => {
+  return axios.delete(`${API_URL}/${id}`);
+};
+
+export {
+  getBookings,
+  createBooking,
+  updateBooking,
+  deleteBooking,
+};
