@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { getRooms } from "../services/roomService";
 
@@ -11,10 +10,16 @@ function Rooms() {
     const fetchRooms = async () => {
       try {
         const response = await getRooms();
-        setRooms(response.data);
+
+        const roomsData = Array.isArray(response.data)
+          ? response.data
+          : [];
+
+        setRooms(roomsData);
         setError("");
       } catch (err) {
         console.error("Error loading rooms:", err);
+        setRooms([]);
         setError("Unable to load rooms from the backend.");
       } finally {
         setLoading(false);

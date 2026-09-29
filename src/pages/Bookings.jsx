@@ -10,10 +10,16 @@ function Bookings() {
     const fetchBookings = async () => {
       try {
         const response = await getBookings();
-        setBookings(response.data);
+
+        const bookingsData = Array.isArray(response.data)
+          ? response.data
+          : [];
+
+        setBookings(bookingsData);
         setError("");
       } catch (err) {
         console.error("Error loading bookings:", err);
+        setBookings([]);
         setError("Unable to load bookings from the backend.");
       } finally {
         setLoading(false);

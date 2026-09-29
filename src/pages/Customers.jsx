@@ -10,10 +10,16 @@ function Customers() {
     const fetchCustomers = async () => {
       try {
         const response = await getCustomers();
-        setCustomers(response.data);
+
+        const customersData = Array.isArray(response.data)
+          ? response.data
+          : [];
+
+        setCustomers(customersData);
         setError("");
       } catch (err) {
         console.error("Error loading customers:", err);
+        setCustomers([]);
         setError("Unable to load customers from the backend.");
       } finally {
         setLoading(false);
